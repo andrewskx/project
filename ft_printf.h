@@ -42,6 +42,7 @@ typedef    struct  s_require
     char len;
     char spec;
     char *str;
+	wchar_t *wstr;
     t_types type;
 }                   t_require;
 void    print_result(t_require *tool, const char *format);

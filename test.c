@@ -4,6 +4,6 @@
 
 int main(void)
 {
-    printf("%hhwvsd", (char)13);
+	printf("%02.5i", -12);
     return (0);
 }

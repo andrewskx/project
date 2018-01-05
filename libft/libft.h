@@ -21,6 +21,8 @@ typedef struct	s_list
 	size_t			content_size;
 	struct s_list	*next;
 }				t_list;
+void	ft_putwchar(wchar_t chr);
+void	ft_putwstr(wchar_t const *str);
 char            *ft_itoa64(int64_t n);
 char            *ft_uitoa(uint64_t n);
 int				ft_toupper(int c);

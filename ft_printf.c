@@ -12,6 +12,16 @@
 
 #include "ft_printf.h"
 
+wchar_t *wchar2str(wchar_t c)
+{
+		wchar_t *ptr;
+
+		ptr = (wchar_t*)malloc(sizeof(wchar_t) * 2);
+		ptr[1] = '\0';
+		ptr[0] = c;
+		return (ptr);
+}
+
 char *char2str(char c)
 {
     char *ptr;
@@ -55,7 +65,9 @@ void     print_while(t_require *tool, const char *format)
         length_manage(tool, format);
         conv_manage(tool, format);
         print_format(tool, format);
+		compose(tool);
         clean_tool(tool);
+
     }
 }
 
@@ -224,11 +236,47 @@ void    print_format(t_require *tool, const char *format)
         tool->str = ft_strdup(va_arg(tool->ptr, char *));
     else if (tool->spec == 'c')
         tool->str = (char*)char2str(va_arg(tool->ptr, int32_t));
-    if (tool->spec != 0)
-         ft_putstr(tool->str);
-    if (tool->str)
-        free(tool->str);
+	else if (tool->spec == 'p')
+			tool->str = (char*)(ft_hex(va_arg(tool->ptr, uint64_t), 'x'));
+	else if (tool->spec == 'S')
+			tool->wstr = va_arg(tool->ptr, wchar_t*);
+	else if(tool->spec == 'C')
+			tool->wstr = wchar2str(va_arg(tool->ptr, wchar_t));
+    //if (tool->spec != 0 && tool->spec != 'S' && tool->spec != 'C')
+  //       ft_putstr(tool->str);
+//	else if (tool->spec == 'S')
+//		 ft_putwstr((wchar_t const*)tool->wstr);
+//	else if (tool->spec == 'C')
+//		ft_putwstr((wchar_t const*)tool->wstr);
+   // if (tool->str)
+     //   free(tool->str);
 }
+
+void	putnchar(int n, char c)
+{
+		int i = 0;
+		while (i < n)
+		{
+				ft_putchar(1, &c, 1);
+				i++;
+		}
+}
+
+void	compose(t_require *tool)
+{
+		if (tool->spec == 'i' || tool->spec == 'I' || tool->spec == 'd' || tool->spec == 'D')
+		{
+				if (tool->str[0] == '-')
+				{
+						if (tool->sign == -1)
+								ft_putchar('-');
+								putnchar(tool->precision - (int)ft_strlen(tool->str + 1), '0');
+								ft_putstr(tool->str + 1);
+								putnchar(tool->width - (int)ft_strlen(tool->str + 1) - tool->precision, ' ');
+				}
+				else
+
+
 
 void    clean_tool(t_require *tool)
 {
@@ -250,6 +298,12 @@ void    print_result(t_require *tool, const char *format)
 
 int main(void)
 {
-    ft_printf("%ju aaaa  lala - a %s,123, %c,%s",-1234567890, "avc", 'c', "pshol");
+		char c = 10;
+		wchar_t s = 0x1F436;
+		void *ptr = &c;
+    //ft_printf("%ju aaaa  lala - a %s,123, %c,%s",-1234567890, "avc", 'c', "pshol");
+	//printf("\n%s","lalala");
+	//	printf("\nlib = %.2p\n", &ptr);
+		ft_printf("mine = %", 50177);
     return (0);
 }
