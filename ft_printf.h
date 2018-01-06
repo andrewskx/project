@@ -6,7 +6,7 @@
 /*   By: anboscan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/15 15:36:24 by anboscan          #+#    #+#             */
-/*   Updated: 2018/01/05 20:43:20 by anboscan         ###   ########.fr       */
+/*   Updated: 2018/01/06 19:38:12 by anboscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,10 @@
 # include <stdlib.h>
 # include "libft/libft.h"
 #define SPECIFIERS "sSpdDioOuUxXcC%"
-typedef     struct  s_types
-{
-    short int t_short;
-    unsigned short int t_ushort;
-    char    t_char;
-    unsigned char t_uchar;
-    long int    t_longint;
-    unsigned long int t_ulongint;
-    long long int   t_longlong;
-    unsigned long long int t_ulonglong;
-}                   t_types;
 typedef    struct  s_require
 {
+    int64_t aux1;
+    uint64_t aux;
     va_list ptr;
     int index;
     int symbols;
@@ -43,9 +34,11 @@ typedef    struct  s_require
     char spec;
     char *str;
 	wchar_t *wstr;
-    t_types type;
-}                   t_require;
-void    print_result(t_require *tool, const char *format);
+}               t_require;
+char    *char2str(char c);
+wchar_t *wchar2str(wchar_t c);
+void    compose(t_require *tool);
+void    print_result(t_require *tool);
 void    clean_tool(t_require *tool);
 void    conv_manage(t_require *tool, const char *format);
 void    length_manage(t_require *tool, const char *format);
@@ -57,5 +50,7 @@ void    print_while(t_require *tool, const char *format);
 int     ft_printf(const char *format, ...);
 char    *ft_hex(uint64_t  num, char x);
 char    *ft_oct(uint64_t num);
-void    print_format(t_require *tool, const char *format);
+void    print_format(t_require *tool);
+void    print_format2(t_require *tool);
+void    print_format3(t_require *tool);
 #endif

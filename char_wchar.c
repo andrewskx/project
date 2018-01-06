@@ -1,35 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_uitoa.c                                         :+:      :+:    :+:   */
+/*   char_wchar.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anboscan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/05 16:39:22 by anboscan          #+#    #+#             */
-/*   Updated: 2018/01/06 19:11:01 by anboscan         ###   ########.fr       */
+/*   Created: 2018/01/06 18:31:28 by anboscan          #+#    #+#             */
+/*   Updated: 2018/01/06 18:58:16 by anboscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include "libft.h"
+#include "ft_printf.h"
 
-char		*ft_uitoa(uint64_t n)
+wchar_t	*wchar2str(wchar_t c)
 {
-	uint64_t	tmpn;
-	int			len;
-	char		*str;
+	wchar_t *ptr;
 
-	tmpn = n;
-	len = 2;
-	while (tmpn /= 10)
-		len++;
-	if ((str = (char*)malloc(sizeof(char) * len)) == 0)
-		return (0);
-	str[--len] = '\0';
-	while (len--)
-	{
-		str[len] = n % 10 + '0';
-		n = n / 10;
-	}
-	return (str);
+	ptr = (wchar_t*)malloc(sizeof(wchar_t) * 2);
+	ptr[1] = '\0';
+	ptr[0] = c;
+	return (ptr);
+}
+
+char	*char2str(char c)
+{
+	char *ptr;
+
+	ptr = (char*)malloc(sizeof(char) * 2);
+	ptr[1] = '\0';
+	ptr[0] = c;
+	return (ptr);
 }

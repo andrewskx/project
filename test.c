@@ -4,6 +4,7 @@
 
 int main(void)
 {
-	printf("%02.5i", -12);
+	ft_printf("%+10.5i\n", -12);
+	printf("%+10.5i\n", -12);
     return (0);
 }

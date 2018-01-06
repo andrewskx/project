@@ -1,35 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_uitoa.c                                         :+:      :+:    :+:   */
+/*   ft_putnchar.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anboscan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/05 16:39:22 by anboscan          #+#    #+#             */
-/*   Updated: 2018/01/06 19:11:01 by anboscan         ###   ########.fr       */
+/*   Created: 2018/01/06 16:36:22 by anboscan          #+#    #+#             */
+/*   Updated: 2018/01/06 19:13:38 by anboscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include "libft.h"
 
-char		*ft_uitoa(uint64_t n)
+void	ft_putnchar(int n, char c)
 {
-	uint64_t	tmpn;
-	int			len;
-	char		*str;
+	int i;
 
-	tmpn = n;
-	len = 2;
-	while (tmpn /= 10)
-		len++;
-	if ((str = (char*)malloc(sizeof(char) * len)) == 0)
-		return (0);
-	str[--len] = '\0';
-	while (len--)
+	i = 0;
+	while (i < n)
 	{
-		str[len] = n % 10 + '0';
-		n = n / 10;
+		write(1, &c, 1);
+		i++;
 	}
-	return (str);
 }

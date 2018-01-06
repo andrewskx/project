@@ -6,7 +6,7 @@
 /*   By: anboscan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/22 14:00:31 by anboscan          #+#    #+#             */
-/*   Updated: 2018/01/05 16:48:48 by anboscan         ###   ########.fr       */
+/*   Updated: 2018/01/06 19:12:48 by anboscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ char		*ft_itoa64(int64_t n)
 {
 	int64_t		tmpn;
 	int64_t		len;
-	int	negative;
-	char	*str;
+	int			negative;
+	char		*str;
 
 	if ((str = ft_check(n)) == 0)
 	{
