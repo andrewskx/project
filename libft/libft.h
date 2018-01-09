@@ -6,7 +6,7 @@
 /*   By: anboscan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/20 19:03:28 by anboscan          #+#    #+#             */
-/*   Updated: 2018/01/06 16:36:47 by anboscan         ###   ########.fr       */
+/*   Updated: 2018/01/08 19:38:00 by anboscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ typedef struct	s_list
 	size_t			content_size;
 	struct s_list	*next;
 }				t_list;
-void    ft_putnchar(int n, char c);
+void    ft_putnchar(int n, char c, char *str);
 void	ft_putwchar(wchar_t chr);
 void	ft_putwstr(wchar_t const *str);
 char            *ft_itoa64(int64_t n);

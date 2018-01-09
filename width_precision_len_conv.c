@@ -6,7 +6,7 @@
 /*   By: anboscan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/06 19:03:27 by anboscan          #+#    #+#             */
-/*   Updated: 2018/01/06 19:09:19 by anboscan         ###   ########.fr       */
+/*   Updated: 2018/01/09 21:26:28 by anboscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@ void	flag_manage(t_require *tool, const char *format)
 {
 	while ((format[tool->index] == '#' || format[tool->index] == '-' ||
 			format[tool->index] == '+' ||
-			format[tool->index] == ' ' || format[tool->index] == '0')
-			&& format[tool->index])
+			format[tool->index] == ' ' || format[tool->index] == '0') && format[tool->index])
 	{
 		if (format[tool->index] == '#')
 			tool->alt = 1;
@@ -58,6 +57,7 @@ void	precis_manage(t_require *tool, const char *format)
 {
 	if (format[tool->index] == '.')
 	{
+		tool->dot = 1;
 		tool->index++;
 		if (format[tool->index] == '*')
 		{
@@ -70,6 +70,12 @@ void	precis_manage(t_require *tool, const char *format)
 			while (format[tool->index] >= '0' &&
 				format[tool->index] <= '9' && format[tool->index])
 				tool->index++;
+		}
+		else
+		{
+			flag_manage(tool, format);
+			min_width(tool, format);
+			precis_manage(tool, format);
 		}
 	}
 }

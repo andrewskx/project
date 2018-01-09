@@ -6,7 +6,7 @@
 /*   By: anboscan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/20 17:21:22 by anboscan          #+#    #+#             */
-/*   Updated: 2018/01/06 19:40:47 by anboscan         ###   ########.fr       */
+/*   Updated: 2018/01/09 17:00:36 by anboscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int		ft_printf(const char *format, ...)
 	clean_tool(&tool);
 	va_start(tool.ptr, format);
 	print_while(&tool, format);
+	va_end(tool.ptr);
 	return (tool.symbols);
 }
 
@@ -35,6 +36,8 @@ void	print_while(t_require *tool, const char *format)
 			tool->index++;
 			tool->symbols++;
 		}
+		if (!format[tool->index])
+			break;
 		tool->index++;
 		flag_manage(tool, format);
 		min_width(tool, format);
@@ -42,7 +45,7 @@ void	print_while(t_require *tool, const char *format)
 		length_manage(tool, format);
 		conv_manage(tool, format);
 		print_format(tool);
-		compose(tool);
+		func2conv(tool);
 		clean_tool(tool);
 	}
 }
@@ -71,4 +74,5 @@ void	clean_tool(t_require *tool)
 	tool->precision = 0;
 	tool->len = 0;
 	tool->spec = 0;
+	tool->dot = 0;
 }

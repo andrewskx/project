@@ -6,7 +6,7 @@
 /*   By: anboscan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/15 15:36:24 by anboscan          #+#    #+#             */
-/*   Updated: 2018/01/06 19:38:12 by anboscan         ###   ########.fr       */
+/*   Updated: 2018/01/09 20:57:15 by anboscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef    struct  s_require
     int zero;
     int pad;
     int sign;
+	int dot;
     int width;
     int precision;
     char len;
@@ -35,9 +36,20 @@ typedef    struct  s_require
     char *str;
 	wchar_t *wstr;
 }               t_require;
+void zero_fill(t_require *tool);
+char 	*ft_capitalize(char *str);
+char *ft_strnew_char(uint32_t, char c);
 char    *char2str(char c);
 wchar_t *wchar2str(wchar_t c);
-void    compose(t_require *tool);
+void	func2conv(t_require *tool);
+void	conversion_xx_prefix(t_require *tool);
+void	conversion_xx(t_require *tool);
+void	conversion_p(t_require *tool);
+void	conversion_s(t_require *tool);
+void	conversion_ss(t_require *tool);
+void	conversion_oo(t_require *tool);
+void    conversion_uu(t_require *tool);
+void	conversion_cc(t_require *tool);
 void    print_result(t_require *tool);
 void    clean_tool(t_require *tool);
 void    conv_manage(t_require *tool, const char *format);

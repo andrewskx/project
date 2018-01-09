@@ -6,7 +6,7 @@
 /*   By: anboscan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/06 18:42:19 by anboscan          #+#    #+#             */
-/*   Updated: 2018/01/06 19:02:39 by anboscan         ###   ########.fr       */
+/*   Updated: 2018/01/09 21:12:43 by anboscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ char	*ft_hex(uint64_t num, char x)
 	int		rest;
 
 	i = 0;
+	if (num == 0)
+		buff[i++] = '0';
 	while (num)
 	{
 		rest = num % 16;

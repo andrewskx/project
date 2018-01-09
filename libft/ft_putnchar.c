@@ -6,20 +6,27 @@
 /*   By: anboscan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/06 16:36:22 by anboscan          #+#    #+#             */
-/*   Updated: 2018/01/06 19:13:38 by anboscan         ###   ########.fr       */
+/*   Updated: 2018/01/08 17:12:23 by anboscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putnchar(int n, char c)
+void	ft_putnchar(int n, char c, char *str)
 {
 	int i;
 
 	i = 0;
-	while (i < n)
-	{
-		write(1, &c, 1);
-		i++;
-	}
+	if (!str)
+		while (i < n)
+		{
+			write(1, &c, 1);
+			i++;
+		}
+	else
+		while (i < n && str[i])
+		{
+			write(1, &str[i], 1);
+			i++;
+		}
 }
