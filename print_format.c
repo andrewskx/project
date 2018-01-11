@@ -6,7 +6,7 @@
 /*   By: anboscan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/06 19:19:57 by anboscan          #+#    #+#             */
-/*   Updated: 2018/01/09 21:28:29 by anboscan         ###   ########.fr       */
+/*   Updated: 2018/01/11 17:17:36 by anboscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,14 @@ void	print_format2(t_require *tool)
 			tool->spec == 'o' || tool->spec == 'O'
 			|| tool->spec == 'x' || tool->spec == 'X')
 	{
-		if (tool->len == 'h')
+		if (tool->len == 'h' && tool->spec != 'U' && tool->spec != 'O')
 			tool->aux = (unsigned short int)va_arg(tool->ptr, uint32_t);
-		else if (tool->len == 'H')
+		else if (tool->len == 'H' && tool->spec != 'U' && tool->spec != 'O')
 			tool->aux = (unsigned char)va_arg(tool->ptr, uint32_t);
 		else if (tool->len == 'l')
 			tool->aux = (unsigned long int)va_arg(tool->ptr, uint64_t);
-		else if (tool->len == 'L' || tool->len == 'z' || tool->len == 'j')
+		else if (tool->len == 'L' || tool->len == 'z' || tool->len == 'j'
+			|| tool->spec == 'U' || tool->spec == 'O')
 			tool->aux = (uint64_t)va_arg(tool->ptr, uint64_t);
 		else
 			tool->aux = (uint32_t)va_arg(tool->ptr, uint32_t);
@@ -66,8 +67,17 @@ void	print_format2(t_require *tool)
 
 void	print_format3(t_require *tool)
 {
+	char *c;
+
+	c = 0;
 	if (tool->spec == 's')
-		tool->str = ft_strdup(va_arg(tool->ptr, char *));
+	{
+		c = va_arg(tool->ptr, char *);
+		if (c)
+			tool->str = ft_strdup(c);
+		else
+			tool->str = ft_strdup("(null)");
+	}
 	else if (tool->spec == 'c')
 		tool->str = (char*)char2str(va_arg(tool->ptr, int32_t));
 	else if (tool->spec == 'p')

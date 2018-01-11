@@ -1,6 +1,28 @@
-exe : ft_printf.c ft_printf.h hex_oct.c libft/*.c libft/libft.h
-		make -C libft/
-		gcc  ft_printf.c test.c conversion_manage.c compose.c   print_format.c char_wchar.c width_precision_len_conv.c  hex_oct.c -I ft_printf.h -I libft/libft.h libft/libft.a -o exe
-re :
+CC=gcc
+FLAGS=-Wall -Werror -Wextra
+HEADERS=libft/libft.h ft_printf.h
+OBJ=*.o
+SOURCES=*.c
+STATIC=libft/libft.a
+TARGET=libftprintf.a
+
+all:	$(TARGET)
+
+$(TARGET):	$(OBJ)
+	ar rc $(TARGET) $(OBJ) libft/*.o
+	ranlib $(TARGET)
+
+$(OBJ): 
+	$(CC) $(SOURCES) -c -I $(HEADERS) $(STATIC)
+
+$(STATIC): 
 	make -C libft/
-	gcc  char_wchar.c test.c  print_format.c conversion_manage.c  compose.c  width_precision_len_conv.c  hex_oct.c  ft_printf.c -I ft_printf.h -I libft/libft.h libft/libft.a -o exe
+
+clean:
+	rm -f $(OBJ)
+
+fclean: clean
+	rm -f $(TARGET)
+
+re: fclean all
+

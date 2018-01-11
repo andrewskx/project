@@ -6,7 +6,7 @@
 /*   By: anboscan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/20 17:21:22 by anboscan          #+#    #+#             */
-/*   Updated: 2018/01/09 17:00:36 by anboscan         ###   ########.fr       */
+/*   Updated: 2018/01/11 15:59:23 by anboscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,4 +75,10 @@ void	clean_tool(t_require *tool)
 	tool->len = 0;
 	tool->spec = 0;
 	tool->dot = 0;
+	tool->plus = 0;
+	tool->is_neg = 0;
+//	if (tool->str)
+	//	free(tool->str);
+//	if (tool->wstr)
+//		free(tool->wstr);
 }

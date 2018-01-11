@@ -6,30 +6,84 @@
 /*   By: anboscan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/09 15:46:32 by anboscan          #+#    #+#             */
-/*   Updated: 2018/01/09 21:20:36 by anboscan         ###   ########.fr       */
+/*   Updated: 2018/01/11 17:17:23 by anboscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	conversion_xx_prefix(t_require *tool)
+void	join_and_free(char *str, t_require *tool)
 {
 	char *aux;
 
-	if (tool->spec == 'X' && tool->alt)
+	aux = ft_strjoin(str, tool->str);
+	if (tool->str)
+		free(tool->str);
+	tool->str = aux;
+}
+
+void	precision_dd(t_require *tool)
+{
+	char *aux;
+
+	if (!tool->precision && tool->dot && tool->str[0] == '0')
+		tool->str[0] = '\0';
+	else if ((tool->width > (int)ft_strlen(tool->str) -1) &&
+			(tool->plus || tool->is_neg || tool->pad) && tool->zero)
 	{
-		aux = ft_strjoin("0X", tool->str);
+		aux = ft_strnew_char(tool->width - (int)ft_strlen(tool->str) - 1, '0');
+		join_and_free(aux, tool);
+		free(aux);
+	}
+}
+
+void	check_neg(t_require *tool)
+{
+	char *str;
+
+	if (tool->str)
+	if (tool->str[0] == '-')
+	{
+		tool->is_neg = 1;
+		str = ft_strdup(&tool->str[1]);
 		if (tool->str)
 			free(tool->str);
-		tool->str = aux;
+		tool->str = str;
+	}
+}
+
+void	conversion_dd(t_require *tool)
+{
+	check_neg(tool);
+	zero_fill(tool);
+	precision_dd(tool);
+	if (tool->pad && !tool->plus && !tool->is_neg)
+		join_and_free(" ", tool);
+	else if (tool->plus && !tool->is_neg && !tool->zero)
+		join_and_free("+", tool);
+	else if (tool->plus && !tool->is_neg && tool->zero)
+		join_and_free("+", tool);
+	else if (tool->is_neg && !tool->zero)
+		join_and_free("-", tool);
+	else if (tool->is_neg && tool->zero)
+		join_and_free("-", tool);
+	conversion_uu(tool);
+}
+
+
+
+void	conversion_xx_prefix(t_require *tool)
+{
+	if (tool->spec == 'X' && tool->alt &&
+		((int)ft_strlen(tool->str) != 1 && tool->str[0] != '0'))
+	{
+		join_and_free("0X", tool);
 		ft_capitalize(tool->str);
 	}
-	else if (tool->spec == 'x' && tool->alt)
+	else if (tool->spec == 'x' && tool->alt &&
+		((int)ft_strlen(tool->str) != 1 && tool->str[0] != '0'))
 	{
-		aux = ft_strjoin("0x", tool->str);
-		if (tool->str)
-			free(tool->str);
-		tool->str = aux;
+		join_and_free("0x", tool);
 	}
 }
 
@@ -44,7 +98,7 @@ void	conversion_xx(t_require *tool)
 		aux = ft_strnew_char(tool->width - (int)ft_strlen(tool->str), '0');
 		aux2 = ft_strjoin(aux, tool->str);
 		free(aux);
-		free(aux2);
+		free(tool->str);
 		tool->str = aux2;
 		conversion_xx_prefix(tool);
 		conversion_uu(tool);
@@ -59,8 +113,8 @@ void	conversion_xx(t_require *tool)
 
 void	conversion_p(t_require *tool)
 {
-	char *aux;
 	char *aux2;
+	char *aux;
 
 	if (tool->zero && !tool->dot && (tool->width > tool->precision + 2))
 	{
@@ -71,10 +125,7 @@ void	conversion_p(t_require *tool)
 		tool->str = aux2;
 	}
 	zero_fill(tool);
-	aux = ft_strjoin("0x", tool->str);
-	if (tool->str)
-		free(tool->str);
-	tool->str = aux;
+	join_and_free("0x", tool);
 	conversion_uu(tool);
 }
 
@@ -108,13 +159,13 @@ char	*ft_strnew_char(uint32_t n, char c)
 	uint32_t	i;
 
 	i = 0;
-	ptr = (char*)malloc(sizeof(char) * (n + 1));
-	while (i < n)
-	{
-		ptr[i] = c;
-		i++;
-	}
-	ptr[i] = '\0';
+		ptr = (char*)malloc(sizeof(char) * (n + 1));
+		while (i < n)
+		{
+			ptr[i] = c;
+			i++;
+		}
+		ptr[i] = '\0';
 	return (ptr);
 }
 
@@ -158,4 +209,6 @@ void	func2conv(t_require *tool)
 		conversion_p(tool);
 	else if (tool->spec == 'x' || tool->spec == 'X')
 		conversion_xx(tool);
+	else if (tool->spec == 'd' || tool->spec == 'i')
+		conversion_dd(tool);
 }

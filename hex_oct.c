@@ -6,7 +6,7 @@
 /*   By: anboscan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/06 18:42:19 by anboscan          #+#    #+#             */
-/*   Updated: 2018/01/09 21:12:43 by anboscan         ###   ########.fr       */
+/*   Updated: 2018/01/10 16:46:26 by anboscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,8 @@ char	*ft_oct(uint64_t num)
 	int		rest;
 
 	i = 0;
+	if (!num)
+		buff[i++] = '0';
 	while (num)
 	{
 		rest = num % 8;

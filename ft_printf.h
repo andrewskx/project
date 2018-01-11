@@ -6,7 +6,7 @@
 /*   By: anboscan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/15 15:36:24 by anboscan          #+#    #+#             */
-/*   Updated: 2018/01/09 20:57:15 by anboscan         ###   ########.fr       */
+/*   Updated: 2018/01/11 17:48:02 by anboscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,9 @@ typedef    struct  s_require
     int index;
     int symbols;
     int alt;
+	int is_neg;
     int zero;
+	int plus;
     int pad;
     int sign;
 	int dot;
@@ -36,12 +38,18 @@ typedef    struct  s_require
     char *str;
 	wchar_t *wstr;
 }               t_require;
+void	ft_putnchar_m(int n, char c, char *str, t_require *tool);
+void	ft_putwstr_m(wchar_t const *str, t_require *tool);
+void	ft_putwchar_m(wchar_t chr, t_require *tool);
+void	check_neg(t_require *tool);
+void	terminate_s(t_require *tool);
 void zero_fill(t_require *tool);
 char 	*ft_capitalize(char *str);
 char *ft_strnew_char(uint32_t, char c);
 char    *char2str(char c);
 wchar_t *wchar2str(wchar_t c);
 void	func2conv(t_require *tool);
+void	conversion_dd(t_require *tool);
 void	conversion_xx_prefix(t_require *tool);
 void	conversion_xx(t_require *tool);
 void	conversion_p(t_require *tool);

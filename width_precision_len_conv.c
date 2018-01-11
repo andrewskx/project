@@ -6,7 +6,7 @@
 /*   By: anboscan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/06 19:03:27 by anboscan          #+#    #+#             */
-/*   Updated: 2018/01/09 21:26:28 by anboscan         ###   ########.fr       */
+/*   Updated: 2018/01/11 18:13:48 by anboscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	flag_manage(t_require *tool, const char *format)
 		if (format[tool->index] == '-')
 			tool->sign = -1;
 		if (format[tool->index] == '+')
-			tool->sign = 1;
+			tool->plus = 1;
 		if (format[tool->index] == ' ')
 			tool->pad = 1;
 		if (format[tool->index] == '0')
@@ -109,7 +109,7 @@ void	length_manage(t_require *tool, const char *format)
 void	conv_manage(t_require *tool, const char *format)
 {
 	while (!is_spec(format[tool->index]) && format[tool->index])
-		tool->index++;
+		length_manage(tool, format);
 	if (format[tool->index])
 	{
 		tool->spec = format[tool->index];
