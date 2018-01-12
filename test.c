@@ -10,6 +10,11 @@ void    ft_test(char *str, int nbr)
 }
 int	main()
 {
-	printf("%hhld", 128);
+	ft_printf("%#.0x\n", 0);
+	printf("%#.0x\n", 0);
+	ft_printf("%#.6o\n", 123456);
+	printf("%#.6o\n", 123456);
+	ft_printf("%c\n", (void*)0);
+	printf("%c\n", 0);
 	return (0);
 }

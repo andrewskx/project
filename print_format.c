@@ -11,17 +11,18 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#define abs(x) ((x) < 0 ? (-x) : (x))
 
 void	print_format(t_require *tool)
 {
 	if (tool->spec == 'd' || tool->spec == 'D' ||
 		tool->spec == 'i' || tool->spec == 'I')
 	{
-		if (tool->len == 'h')
+		if (tool->len == 'h' && tool->spec != 'D')
 			tool->aux1 = (short int)va_arg(tool->ptr, int32_t);
-		else if (tool->len == 'H')
+		else if (tool->len == 'H' && tool->spec != 'D')
 			tool->aux1 = (char)va_arg(tool->ptr, int32_t);
-		else if (tool->len == 'l')
+		else if (tool->len == 'l' || tool->len == 'h' || tool->len == 'H') 
 			tool->aux1 = (int64_t)va_arg(tool->ptr, int64_t);
 		else if (tool->len == 'L')
 			tool->aux1 = (int64_t)va_arg(tool->ptr, int64_t);
@@ -79,7 +80,7 @@ void	print_format3(t_require *tool)
 			tool->str = ft_strdup("(null)");
 	}
 	else if (tool->spec == 'c')
-		tool->str = (char*)char2str(va_arg(tool->ptr, int32_t));
+		tool->str = (char*)char2str(va_arg(tool->ptr, uint32_t));
 	else if (tool->spec == 'p')
 		tool->str = (char*)(ft_hex(va_arg(tool->ptr, uint64_t), 'x'));
 	else if (tool->spec == 'S')

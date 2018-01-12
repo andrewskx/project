@@ -26,16 +26,14 @@ static char	*ft_check(int64_t n)
 {
 	char *ptr;
 
-	if (n == -2147483648)
+	if (n == 9223372036854775807)
 	{
-		ptr = (char*)malloc(sizeof(char) * (ft_strlen("−2147483648") + 1));
-		ft_strcpy(ptr, "-2147483648");
+		ptr = ft_strdup("9223372036854775807");
 		return (ptr);
 	}
-	if (n == 2147483647)
+	if (n == (-9223372036854775807 - 1))
 	{
-		ptr = (char*)malloc(sizeof(char) * (ft_strlen("2147483647") + 1));
-		ft_strcpy(ptr, "2147483647");
+		ptr = ft_strdup("-9223372036854775808");
 		return (ptr);
 	}
 	return (0);
